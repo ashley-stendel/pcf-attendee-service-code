@@ -14,15 +14,6 @@ resources:
     space: development
     skip_cert_check: true
 
-jobs:
-- name: test
-  public: true
-  plan:
-  - get: attendee-service-source
-    trigger: true
-  - task: test
-    file: attendee-service-source/ci/tasks/test.yml
-
 
 jobs:
 - name: test
@@ -44,7 +35,7 @@ jobs:
   - put: deploy-attendee-service
     params:
       manifest: attendee-service-source/manifest.yml
-      path: package-output/attendee-service.jar
+      path: package-output/attendee-service-source.jar
 
 - name: smoke_test
   public: true
@@ -55,7 +46,7 @@ jobs:
   - task: smoke_test
     file: attendee-service-source/ci/tasks/smoke-test.yml
     params:
-      ATTENDEE_SERVICE_URL: http://attendee-service-earless-circumvolution.cfapps.io
+      ATTENDEE_SERVICE_URL: http://attendee-service-earless-circumvolution.cfapps.io/
 
 
 
